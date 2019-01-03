@@ -1,7 +1,7 @@
 package main
 
 import (
-	"advent-code/challenge/DayOne"
+	//"advent-code/challenge/DayOne"
 	"advent-code/challenge/DayTwo"
 	"advent-code/lib/inputter"
 	"fmt"
@@ -16,7 +16,7 @@ func main() {
 
 	var challenge Challenger
 
-	challenge = DayOne.DayTwoA{input}
+	challenge = DayTwo.DayTwoA{input}
 	output := challenge.DoChallenge()
 	fmt.Printf("The answer is '%s'\n", output)
 }

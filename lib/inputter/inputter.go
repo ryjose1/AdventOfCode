@@ -1,20 +1,18 @@
 package inputter
 
 import (
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
 	"os"
+	"strings"
 )
 
 func Input() string {
 	input, err := ioutil.ReadFile("input.txt")
-	
+
 	if err != nil {
 		fmt.Println("Error reading input file")
 		os.Exit(1)
 	}
-	
-	return string(input)
+	return strings.TrimSpace(string(input))
 }
-
-

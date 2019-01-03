@@ -1,10 +1,10 @@
 package DayOne
 
 import (
-	"fmt"
-	"strings"
-	"strconv"
 	"advent-code/challenge/DayOne/utils"
+	"fmt"
+	"strconv"
+	"strings"
 )
 
 type DayOneB struct {
@@ -13,7 +13,7 @@ type DayOneB struct {
 
 var frequencies map[int]bool
 
-func checkRepeatFrequency(frequency int) bool{
+func checkRepeatFrequency(frequency int) bool {
 	if frequencies[frequency] {
 		return true
 	} else {
@@ -24,13 +24,11 @@ func checkRepeatFrequency(frequency int) bool{
 }
 
 func (d DayOneB) DoChallenge() string {
-	d.Input = strings.TrimSpace(d.Input)
-	inputLines:= strings.Split(d.Input, "\n")
+	inputLines := strings.Split(d.Input, "\n")
 
 	frequencies = make(map[int]bool)
-	var frequency int	
+	var frequency int
 	isRepeatFrequency := false
-	
 
 	for i := 0; !isRepeatFrequency; i++ {
 		if i == len(inputLines) {
@@ -38,12 +36,11 @@ func (d DayOneB) DoChallenge() string {
 		}
 		frequencyChange := utils.ParseInputNumber(inputLines[i])
 		frequency += frequencyChange
-		
+
 		isRepeatFrequency = checkRepeatFrequency(frequency)
 	}
-	
+
 	fmt.Printf("The first repeat frequency is %d\n", frequency)
 
 	return strconv.Itoa(frequency)
 }
-
