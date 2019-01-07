@@ -10,30 +10,46 @@ type DayTwoA struct {
 	Input string
 }
 
-func isTwoLetterId(id string) bool {
-	return true
-}
+func countLetters(input string) map[string]int {
+	letterMap := make(map[string]int)
 
-func isThreeLetterId(id string) bool {
-	return true
-}
-
-func (d DayTwoA) DoChallenge() string {
-	inputLines := strings.Split(d.Input, "\n")
-
-	twoLetterIds := make([]string, 0, 250)
-	threeLetterIds := make([]string, 0, 250)
-
-	for i, inputLine := range inputLines {
-		if isTwoLetterId(inputLine) {
-			twoLetterIds = append(twoLetterIds, inputLine)
-		}
-		if isThreeLetterId(inputLine) {
-			threeLetterIds = append(threeLetterIds, inputLine)
-		}
-		fmt.Printf("i:%d, len2: %d, len3: %d\n", i, len(twoLetterIds), len(threeLetterIds))
+	for _, letter := range input {
+		letterString := string(letter)
+		letterMap[letterString] = letterMap[letterString] + 1
 	}
 
-	checksum := len(twoLetterIds) * len(threeLetterIds)
+	return letterMap
+}
+
+func doesAnyLetterRepeat(repeatAmount int, letterCountMap map[string]int) bool {
+	for _, letterCount := range letterCountMap {
+		if letterCount == repeatAmount {
+			return true
+		}
+	}
+	return false
+}
+
+func (d DayTwoA) DoChallenge() string { 
+	inputLines := strings.Split(d.Input, "\n")
+
+	var twoSameLetterIds, threeSameLetterIds int
+
+	for _, inputLine := range inputLines {
+		letterCountMap := countLetters(inputLine)
+
+		if doesAnyLetterRepeat(2, letterCountMap) {
+			twoSameLetterIds++
+		}
+
+		if doesAnyLetterRepeat(3, letterCountMap) {
+			threeSameLetterIds++
+		}
+	}
+
+	checksum := twoSameLetterIds * threeSameLetterIds
+
+	fmt.Printf("There were %d ids with two of the same letter and %d ids with three of the same letter. \n" + 
+		"The checksum is %d \n", twoSameLetterIds * threeSameLetterIds, checksum)
 	return strconv.Itoa(checksum)
 }
