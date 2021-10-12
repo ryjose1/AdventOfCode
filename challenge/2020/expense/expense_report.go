@@ -3,7 +3,10 @@
 package expense
 
 import (
+	"bufio"
+	"os"
 	"sort"
+	"strconv"
 )
 
 // FindTwoEntries returns two entries from input that sum up to target, returns false if not found
@@ -32,4 +35,19 @@ func FindThreeEntries(input []int, target int) (int, int, int) {
 	}
 
 	return 0, 0, 0
+}
+
+func ScanFileLines(file *os.File) []int {
+	scanner := bufio.NewScanner(file)
+	input := []int{}
+	for scanner.Scan() {
+		line := scanner.Text()
+		entry, err := strconv.Atoi(string(line))
+		if err != nil {
+			panic("Couldn't parse line in file")
+		}
+		input = append(input, entry)
+	}
+
+	return input
 }
