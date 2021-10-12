@@ -5,17 +5,20 @@ import (
 	"log"
 	"os"
 
-	"github.com/ryjose1/advent2020/expense"
+	"github.com/ryjose1/advent2020/password"
 )
 
 func main() {
-	file, err := os.Open("input1.txt")
+	file, err := os.Open("inputs/day2.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
 
-	input := expense.ScanFileLines(file)
-	entry1, entry2, entry3 := expense.FindThreeEntries(input, 2020)
-	fmt.Println(fmt.Sprintf("%d, %d, %d answer = %d", entry1, entry2, entry3, entry1*entry2*entry3))
+	input := password.ScanFileLines(file)
+	answer := password.FilterValidLines(input)
+	for _, line := range answer {
+		fmt.Println(line)
+	}
+	fmt.Printf("Valid Lines: %d", len(answer))
 }
